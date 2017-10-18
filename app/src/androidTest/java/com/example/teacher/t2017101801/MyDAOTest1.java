@@ -14,8 +14,9 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(AndroidJUnit4.class)
 public class MyDAOTest1 {
+
     @Test
-    public void addOneDataAndGetTest()
+    public void clearAndAddOneDataAndGetTest()
     {
         Context appContext = InstrumentationRegistry.getTargetContext();
         PhoneDAODBImpl dao = new PhoneDAODBImpl(appContext);
@@ -23,10 +24,11 @@ public class MyDAOTest1 {
         p.name = "BBB";
         p.tel = "123";
         p.addr = "aabb";
+        dao.clearAll();
         dao.addOne(p);
 
-        Phone p1 = dao.getOne(1);
-        assertEquals("AAA", p1.name);
+        Phone pArray[] = dao.getList();
+        assertEquals("BBB", pArray[0].name);
 
     }
 }

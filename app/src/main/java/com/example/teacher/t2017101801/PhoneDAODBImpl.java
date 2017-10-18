@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 /**
  * Created by teacher on 2017/10/18.
  */
@@ -17,6 +19,34 @@ public class PhoneDAODBImpl implements PhoneDAO {
     {
         helper = new MyHelper(context);
 
+    }
+
+    @Override
+    public void clearAll()
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        db.execSQL("delete from phone");
+        db.close();
+    }
+
+    @Override
+    public Phone[] getList() {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        ArrayList<Phone> mylist = new ArrayList();
+        Cursor c = db.query("phone", new String[] {"id","name","tel","addr"}, null, null, null, null, null);
+        if (c.moveToFirst())
+        {
+            do {
+                Phone p = new Phone();
+                p.id = c.getInt(0);
+                p.name = c.getString(1);
+                p.tel = c.getString(2);
+                p.addr = c.getString(3);
+                mylist.add(p);
+            }while(c.moveToNext());
+        }
+        Phone rValue[] = mylist.toArray(new Phone[mylist.size()]);
+        return rValue;
     }
 
     @Override

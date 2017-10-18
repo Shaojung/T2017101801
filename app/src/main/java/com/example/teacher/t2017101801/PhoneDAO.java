@@ -7,4 +7,6 @@ package com.example.teacher.t2017101801;
 public interface PhoneDAO {
     public void addOne(Phone p);
     public Phone getOne(int id);
+    public void clearAll();
+    public Phone[] getList();
 }
