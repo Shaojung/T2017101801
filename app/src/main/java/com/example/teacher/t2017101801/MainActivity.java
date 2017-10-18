@@ -1,59 +1,48 @@
 package com.example.teacher.t2017101801;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
-
+    ListView lv;
+    ArrayAdapter<String> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
-    public void click1(View v)
-    {
-        Phone p = new Phone();
-        p.name = "BBB";
-        p.tel = "123";
-        p.addr = "aabb";
-        add(p);
-
-        Phone p1 = getOne(1);
-        Log.d("DB", p1.name);
-
+        lv = (ListView) findViewById(R.id.listView);
     }
 
-    public void add(Phone p)
-    {
-        MyHelper helper = new MyHelper(MainActivity.this);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put("name", p.name);
-        cv.put("tel", p.tel);
-        cv.put("addr", p.addr);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        PhoneDAO dao = new PhoneDAODBImpl(MainActivity.this);
+        Phone[] p = dao.getList();
+        String str[] = new String[p.length];
+        for (int i=0;i<p.length;i++)
+        {
+            str[i] = p[i].name + "," + p[i].tel + "," + p[i].addr;
+        }
+        adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, str);
+        lv.setAdapter(adapter);
 
-        db.insert("phone", null, cv);
-        db.close();
     }
 
-    public Phone getOne(int id)
-    {
-        Phone p = new Phone();
-        MyHelper helper = new MyHelper(MainActivity.this);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        Cursor c = db.query("phone", new String[] {"id","name","tel","addr"}, "id=?", new String[] {String.valueOf(id)}, null, null, null);
-        c.moveToFirst();
-        p.id = c.getInt(0);
-        p.name = c.getString(1);
-        p.tel = c.getString(2);
-        p.addr = c.getString(3);
-        db.close();
-        return p;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add("ADD");
+        return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent it = new Intent(MainActivity.this, AddActivity.class);
+        startActivity(it);
+        return super.onOptionsItemSelected(item);
+    }
 }
