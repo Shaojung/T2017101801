@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class MyHelper extends SQLiteOpenHelper {
     final static String DB_Name = "student.sqlite";
-    final static int VERSION = 1;
+    final static int VERSION = 2;
 
     public MyHelper(Context context) {
         super(context, DB_Name, null, VERSION);
@@ -18,12 +18,17 @@ public class MyHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String createSQL = "CREATE TABLE \"phone\" (\"id\" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , \"name\" VARCHAR, \"tel\" VARCHAR, \"addr\" VARCHAR)";
+        String createSQL = "CREATE TABLE \"phone\" (\"id\" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , \"name\" VARCHAR, \"tel\" VARCHAR, \"addr\" VARCHAR, \"email\" VARCHAR)";
         sqLiteDatabase.execSQL(createSQL);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        if (i == 1 && i1 == 2)
+        {
+            String upgradeSQL = "ALTER TABLE \"main\".\"phone\" ADD COLUMN \"email\" VARCHAR";
+            sqLiteDatabase.execSQL(upgradeSQL);
+        }
 
     }
 }

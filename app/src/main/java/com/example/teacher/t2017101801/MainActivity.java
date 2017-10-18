@@ -25,8 +25,7 @@ public class MainActivity extends AppCompatActivity {
         cv.put("addr", "aabb123");
 
         db.insert("phone", null, cv);
-
-
+        
         Cursor c = db.query("phone", new String[] {"name"}, null, null, null, null, null);
         c.moveToFirst();
         Log.d("DB", c.getString(0));
