@@ -11,6 +11,7 @@ import android.widget.TextView;
 public class DetailActivity extends AppCompatActivity {
     Phone p;
     TextView tvId, tvName, tvTel, tvAddr;
+    int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +23,13 @@ public class DetailActivity extends AppCompatActivity {
 
 
         Intent it = getIntent();
-        int id = it.getIntExtra("id", 0);
+        id = it.getIntExtra("id", 0);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         PhoneDAO dao = new PhoneDAODBImpl(DetailActivity.this);
         p = dao.getOne(id);
         tvId.setText(String.valueOf(p.id));
@@ -30,10 +37,19 @@ public class DetailActivity extends AppCompatActivity {
         tvTel.setText(p.tel);
         tvAddr.setText(p.addr);
     }
+
     public void clickBack(View v)
     {
         finish();
     }
+
+    public void clickEdit(View v)
+    {
+        Intent it = new Intent(DetailActivity.this, EditActivity.class);
+        it.putExtra("id", p.id);
+        startActivity(it);
+    }
+
     public void clickDelete(View v)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(DetailActivity.this);
