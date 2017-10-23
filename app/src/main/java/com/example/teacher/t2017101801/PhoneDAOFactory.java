@@ -21,6 +21,9 @@ public class PhoneDAOFactory {
             case DB:
                 dao = new PhoneDAODBImpl(context);
                 break;
+            case File:
+                dao = new PhoneDAOFileImpl(context);
+                break;
         }
         return dao;
     }

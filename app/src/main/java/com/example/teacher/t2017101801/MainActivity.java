@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     ListView lv;
     ArrayAdapter<String> adapter;
     Phone[] p;
-    public static DAOType dt = DAOType.DB;
+    public static DAOType dt = DAOType.File;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

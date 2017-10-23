@@ -5,5 +5,5 @@ package com.example.teacher.t2017101801;
  */
 
 public enum DAOType {
-    Memory, DB
+    Memory, DB, File
 }
