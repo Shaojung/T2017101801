@@ -28,7 +28,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        PhoneDAO dao = PhoneDAOFactory.getDAO(DetailActivity.this);
+        PhoneDAO dao = PhoneDAOFactory.getDAO(DetailActivity.this, MainActivity.dt);
         p = dao.getOne(id);
         tvId.setText(String.valueOf(p.id));
         tvName.setText(p.name);

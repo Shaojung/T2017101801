@@ -14,7 +14,7 @@ public class AddActivity extends AppCompatActivity {
     }
     public void click1(View v)
     {
-        PhoneDAO dao = PhoneDAOFactory.getDAO(AddActivity.this);
+        PhoneDAO dao = PhoneDAOFactory.getDAO(AddActivity.this, MainActivity.dt);
         Phone p = new Phone();
         EditText ed1, ed2, ed3;
         ed1 = (EditText) findViewById(R.id.editText);

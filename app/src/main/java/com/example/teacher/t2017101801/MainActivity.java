@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     ListView lv;
     ArrayAdapter<String> adapter;
     Phone[] p;
+    public static DAOType dt = DAOType.DB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        PhoneDAO dao = PhoneDAOFactory.getDAO(MainActivity.this);
+        PhoneDAO dao = PhoneDAOFactory.getDAO(MainActivity.this, MainActivity.dt);
         p = dao.getList();
         String str[] = new String[p.length];
         for (int i=0;i<p.length;i++)

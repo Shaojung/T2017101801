@@ -18,7 +18,7 @@ public class EditActivity extends AppCompatActivity {
         ed3 = (EditText) findViewById(R.id.editText6);
         Intent it = getIntent();
         int id = it.getIntExtra("id", 0);
-        PhoneDAO dao = PhoneDAOFactory.getDAO(EditActivity.this);
+        PhoneDAO dao = PhoneDAOFactory.getDAO(EditActivity.this, MainActivity.dt);
         p = dao.getOne(id);
 
         ed1.setText(p.name);
@@ -28,7 +28,7 @@ public class EditActivity extends AppCompatActivity {
 
     public void clickUpdate(View v)
     {
-        PhoneDAO dao = PhoneDAOFactory.getDAO(EditActivity.this);
+        PhoneDAO dao = PhoneDAOFactory.getDAO(EditActivity.this, MainActivity.dt);
         p.name = ed1.getText().toString();
         p.tel = ed2.getText().toString();
         p.addr = ed3.getText().toString();

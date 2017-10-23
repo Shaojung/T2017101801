@@ -8,11 +8,20 @@ import android.content.Context;
  */
 
 public class PhoneDAOFactory {
-    public static PhoneDAO getDAO(Context context)
+    public static PhoneDAO getDAO(Context context, DAOType dt)
     {
         Activity act = (Activity) context;
         DAOApplication app = (DAOApplication) act.getApplication();
-        PhoneDAO dao = app.dao;
+        PhoneDAO dao = null;
+        switch(dt)
+        {
+            case Memory:
+                dao = app.dao;
+                break;
+            case DB:
+                dao = new PhoneDAODBImpl(context);
+                break;
+        }
         return dao;
     }
 }
