@@ -21,16 +21,14 @@ public class DetailActivity extends AppCompatActivity {
         tvTel = (TextView) findViewById(R.id.textView3);
         tvAddr = (TextView) findViewById(R.id.textView4);
 
-
         Intent it = getIntent();
         id = it.getIntExtra("id", 0);
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        PhoneDAO dao = new PhoneDAODBImpl(DetailActivity.this);
+        PhoneDAO dao = PhoneDAOFactory.getDAO(DetailActivity.this);
         p = dao.getOne(id);
         tvId.setText(String.valueOf(p.id));
         tvName.setText(p.name);

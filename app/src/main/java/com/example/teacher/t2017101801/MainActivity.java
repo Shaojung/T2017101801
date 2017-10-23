@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        PhoneDAO dao = new PhoneDAODBImpl(MainActivity.this);
+        PhoneDAO dao = PhoneDAOFactory.getDAO(MainActivity.this);
         p = dao.getList();
         String str[] = new String[p.length];
         for (int i=0;i<p.length;i++)
