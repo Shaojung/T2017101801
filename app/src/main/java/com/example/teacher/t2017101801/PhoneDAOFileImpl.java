@@ -72,12 +72,23 @@ public class PhoneDAOFileImpl implements PhoneDAO {
 
     @Override
     public Phone getOne(int id) {
-        return null;
+        Phone rtValue = null;
+        for (Phone tmp : datalist)
+        {
+            if (tmp.id == id)
+            {
+                rtValue = tmp;
+                break;
+            }
+
+        }
+        return rtValue;
     }
 
     @Override
     public void clearAll() {
-
+        datalist.clear();
+        saveFile();
     }
 
     @Override
@@ -87,11 +98,22 @@ public class PhoneDAOFileImpl implements PhoneDAO {
 
     @Override
     public void delete(Phone p) {
-
+        datalist.remove(p);
+        saveFile();
     }
 
     @Override
     public void update(Phone p) {
-
+        for (Phone tmp : datalist)
+        {
+            if (tmp.id == p.id)
+            {
+                tmp.name = p.name;
+                tmp.addr = p.addr;
+                tmp.tel = p.tel;
+                break;
+            }
+        }
+        saveFile();
     }
 }
